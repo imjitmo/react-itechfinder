@@ -1,99 +1,127 @@
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
-  const [showNav, setShowNav] = useState(false);
 
-  const navigationList = ['home', 'profile', 'about', 'sign in', 'sign up'];
-
-  const navToggle = (e) => {
-    e.target.checked ? setShowNav(true) : setShowNav(false);
-  };
   const warning = 'Haha what are you doing? This is a console';
 
   console.log(warning);
   return (
     <>
-      <div className="bg-slate-600">
-        <div className="flex justify-between items-center max-w-6xl mx-auto p-5">
-          <Link to="/">
-            <h1 className="font-bold">OAuth App</h1>
-          </Link>
-          <ul className="gap-4 hidden lg:flex">
-            <Link to="/">
-              <li className="capitalize">Home</li>
-            </Link>
-            <Link to="/about">
-              <li className="capitalize">About</li>
-            </Link>
-            {currentUser ? (
-              <>
-                <li className="dropdown">
-                  <img
-                    tabIndex={0}
-                    role="button"
-                    className="h-7 w-7 rounded-full object-cover dropdown"
-                    src={currentUser.profilePicture}
-                  />
-                  <ul
-                    tabIndex={0}
-                    className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
-                  >
-                    <li>
-                      <Link to="/profile">
-                        <span>Profile</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <a>Business</a>
-                    </li>
-                    <li>
-                      <a>Sign out</a>
-                    </li>
-                  </ul>
+      <div className="navbar bg-gradient-to-tr from-indigo-800 to-indigo-950 text-white lg:p-6">
+        <div className="navbar-start">
+          <div className="dropdown">
+            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h8m-8 6h16"
+                />
+              </svg>
+            </div>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-indigo-600 rounded-box w-52 lg:hidden"
+            >
+              <li>
+                <Link to="/">
+                  <span>Home</span>
+                </Link>
+              </li>
+              <li>
+                <a>TechFind?</a>
+                <ul className="p-2">
+                  <li>
+                    <Link to="/about">
+                      <span>About</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <a>History</a>
+                  </li>
+                </ul>
+              </li>
+              {currentUser ? (
+                <li>
+                  <Link to="/profile">
+                    <span>Profile</span>
+                  </Link>
                 </li>
-              </>
+              ) : (
+                <>
+                  <li>
+                    <Link to="sign-in">
+                      <span>Sign In</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="sign-up">
+                      <span>Sign Up</span>
+                    </Link>
+                  </li>
+                </>
+              )}
+            </ul>
+          </div>
+          <Link to="/">
+            <span className="btn btn-ghost text-xl">iTechFinder</span>
+          </Link>
+        </div>
+        <div className="navbar-center hidden lg:flex">
+          <ul className="menu menu-horizontal px-1">
+            <li>
+              <Link to="/">
+                <span>Home</span>
+              </Link>
+            </li>
+            <li>
+              <details>
+                <summary>TechFind?</summary>
+                <ul className="p-2 bg-indigo-600">
+                  <li>
+                    <Link to="/about">
+                      <span>About</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <a>History</a>
+                  </li>
+                </ul>
+              </details>
+            </li>
+            {currentUser ? (
+              <li>
+                <Link to="/profile">
+                  <span>Profile</span>
+                </Link>
+              </li>
             ) : (
               <>
-                <Link to="/sign-in">
-                  <li className="capitalize">Sign In</li>
-                </Link>
-                <Link to="/sign-up">
-                  <li className="capitalize">Sign Up</li>
-                </Link>
+                <li>
+                  <Link to="sign-in">
+                    <span>Sign In</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="sign-up">
+                    <span>Sign Up</span>
+                  </Link>
+                </li>
               </>
             )}
           </ul>
-          <div className="lg:hidden">
-            <label className="btn btn-circle bg-slate-600 border-0 swap swap-rotate">
-              {/* this hidden checkbox controls the state */}
-              <input type="checkbox" onChange={navToggle} />
-
-              {/* hamburger icon */}
-              <svg className="swap-off fill-current" width="32" height="32" viewBox="0 0 512 512">
-                <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
-              </svg>
-
-              {/* close icon */}
-              <svg className="swap-on fill-current" width="32" height="32" viewBox="0 0 512 512">
-                <polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49" />
-              </svg>
-            </label>
-          </div>
         </div>
-
-        <div className={showNav === true ? 'visible' : 'hidden'}>
-          <ul className="text-center flex flex-col gap-4 p-4">
-            {navigationList.map((navLink, i) => (
-              <Link key={i} to={'/' + navLink}>
-                <li className="capitalize" key={i}>
-                  {navLink}
-                </li>
-              </Link>
-            ))}
-          </ul>
+        <div className="navbar-end">
+          <a className="btn">Button</a>
         </div>
       </div>
     </>

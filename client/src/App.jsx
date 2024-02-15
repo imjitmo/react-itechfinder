@@ -1,6 +1,7 @@
 import './App.css';
 
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import Footer from './components/Footer';
 import Header from './components/Header';
 import PrivateRoute from './components/PrivateRoute';
 import About from './pages/About';
@@ -23,6 +24,7 @@ function App() {
         <Route path="/sign-up" element={<Signup />} />
         <Route path="*" element={<Home />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }
