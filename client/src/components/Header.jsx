@@ -32,38 +32,46 @@ export default function Header() {
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-indigo-600 rounded-box w-52 lg:hidden"
             >
-              <li>
+              <li className="hover:bg-indigo-700 rounded-lg">
                 <Link to="/">
                   <span>Home</span>
                 </Link>
               </li>
               <li>
-                <a>TechFind?</a>
-                <ul className="p-2">
-                  <li>
-                    <Link to="/about">
-                      <span>About</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <a>History</a>
-                  </li>
-                </ul>
+                <details>
+                  <summary className="hover:bg-indigo-700 rounded-lg">Services</summary>
+                  <ul className="p-2 bg-indigo-600 w-max">
+                    <li className="hover:bg-indigo-800 rounded-lg">
+                      <span>Phone Repair</span>
+                    </li>
+                    <li className="hover:bg-indigo-800 rounded-lg">
+                      <span>Laptop Repair</span>
+                    </li>
+                  </ul>
+                </details>
+              </li>
+              <li className="hover:bg-indigo-700 rounded-lg">
+                <Link to="/about">
+                  <span>About</span>
+                </Link>
+              </li>
+              <li className="hover:bg-indigo-700 rounded-lg">
+                <span>Contact Us</span>
               </li>
               {currentUser ? (
-                <li>
+                <li className="hover:bg-indigo-700 rounded-lg">
                   <Link to="/profile">
                     <span>Profile</span>
                   </Link>
                 </li>
               ) : (
                 <>
-                  <li>
+                  <li className="hover:bg-indigo-700 rounded-lg">
                     <Link to="sign-in">
                       <span>Sign In</span>
                     </Link>
                   </li>
-                  <li>
+                  <li className="hover:bg-indigo-700 rounded-lg">
                     <Link to="sign-up">
                       <span>Sign Up</span>
                     </Link>
@@ -78,40 +86,46 @@ export default function Header() {
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
-            <li>
+            <li className="hover:bg-indigo-700 rounded-lg">
               <Link to="/">
                 <span>Home</span>
               </Link>
             </li>
             <li>
               <details>
-                <summary>TechFind?</summary>
-                <ul className="p-2 bg-indigo-600">
-                  <li>
-                    <Link to="/about">
-                      <span>About</span>
-                    </Link>
+                <summary className="hover:bg-indigo-700 rounded-lg">Services</summary>
+                <ul className="p-2 bg-indigo-600 w-max">
+                  <li className="hover:bg-indigo-800 rounded-lg">
+                    <span>Phone Repair</span>
                   </li>
-                  <li>
-                    <a>History</a>
+                  <li className="hover:bg-indigo-800 rounded-lg">
+                    <span>Laptop Repair</span>
                   </li>
                 </ul>
               </details>
             </li>
+            <li className="hover:bg-indigo-700 rounded-lg">
+              <Link to="/about">
+                <span>About</span>
+              </Link>
+            </li>
+            <li className="hover:bg-indigo-700 rounded-lg">
+              <span>Contact Us</span>
+            </li>
             {currentUser ? (
-              <li>
+              <li className="hover:bg-indigo-700 rounded-lg">
                 <Link to="/profile">
                   <span>Profile</span>
                 </Link>
               </li>
             ) : (
               <>
-                <li>
+                <li className="hover:bg-indigo-700 rounded-lg">
                   <Link to="sign-in">
                     <span>Sign In</span>
                   </Link>
                 </li>
-                <li>
+                <li className="hover:bg-indigo-700 rounded-lg">
                   <Link to="sign-up">
                     <span>Sign Up</span>
                   </Link>
@@ -121,7 +135,24 @@ export default function Header() {
           </ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          {currentUser && (
+            <span className="btn p-3 bg-transparent border-none text-white rounded-full uppercase hover:bg-indigo-600">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                />
+              </svg>
+            </span>
+          )}
         </div>
       </div>
     </>

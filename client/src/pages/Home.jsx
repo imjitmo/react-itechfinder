@@ -55,7 +55,7 @@ export default function Home() {
 
               <input type="text" className="grow bg-slate-100" placeholder="Set your location" />
             </label>
-            <button className="btn btn-square bg-indigo-800 text-white hover:bg-indigo-600">
+            <button className="btn btn-square bg-indigo-800 text-white hover:bg-indigo-600 w-full lg:w-16">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
