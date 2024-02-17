@@ -30,7 +30,7 @@ export default function Profile() {
   const handleFileUpload = async (image) => {
     const storage = getStorage(app);
     const fileName = `${new Date().getTime()}_${Math.floor(Math.random() * 10000).toString()}_${image.name}`;
-    const storageRef = ref(storage, fileName);
+    const storageRef = ref(storage, `profile_photo/${fileName}`);
     const uploadTask = uploadBytesResumable(storageRef, image);
     uploadTask.on(
       'state_changed',

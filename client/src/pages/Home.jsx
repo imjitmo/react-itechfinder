@@ -3,11 +3,11 @@ export default function Home() {
     <div className="max-w-full mx-auto">
       <img
         className="object-cover w-full h-auto"
-        src="https://images.squarespace-cdn.com/content/v1/5b9a382a4cde7aa1fc597fac/e04a9627-885e-4a95-b7a9-fd1a4a93a439/workshop-assembling-smartphones-black-background-free-space-concept-science-innovation.jpg"
+        src="https://firebasestorage.googleapis.com/v0/b/itechfinder-4502f.appspot.com/o/page_photo%2Fbanner-top.png?alt=media&token=62166926-9269-4a87-af69-d1eb09bbe9b0"
       />
       <div className="p-3 mx-auto max-w-max">
         <div className="flex flex-col gap-4 my-5">
-          <h1 className="font-black text-4xl capitalize text-indigo-800 text-center">Start a repair</h1>
+          <h1 className="font-black text-4xl capitalize text-blue-800 text-center">Start a repair</h1>
           <form action="" className="flex flex-col lg:flex-row gap-4">
             <label className="input input-bordered w-full max-w-xs flex items-center gap-2 p-5 bg-slate-100">
               <svg
@@ -55,7 +55,7 @@ export default function Home() {
 
               <input type="text" className="grow bg-slate-100" placeholder="Set your location" />
             </label>
-            <button className="btn btn-square bg-indigo-800 text-white hover:bg-indigo-600 w-full lg:w-16">
+            <button className="btn btn-square bg-blue-800 text-white hover:bg-blue-600 w-full lg:w-16">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -78,7 +78,7 @@ export default function Home() {
       <div className="max-w-full mx-auto my-5">
         <img
           className="object-cover w-full h-auto"
-          src="https://grist.org/wp-content/uploads/2022/04/fixing-tech.jpg?quality=75&strip=all"
+          src="https://firebasestorage.googleapis.com/v0/b/itechfinder-4502f.appspot.com/o/page_photo%2Fimg-2.png?alt=media&token=7086b691-b3fb-4f0f-85ef-51b4f5979842"
           alt=""
         />
       </div>

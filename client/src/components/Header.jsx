@@ -9,7 +9,7 @@ export default function Header() {
   console.log(warning);
   return (
     <>
-      <div className="navbar bg-gradient-to-tr from-indigo-800 to-indigo-950 text-white lg:p-6">
+      <div className="navbar bg-gradient-to-tr from-blue-800 to-blue-950 text-white lg:p-6">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -30,48 +30,48 @@ export default function Header() {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-indigo-600 rounded-box w-52 lg:hidden"
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-blue-600 rounded-box w-52 lg:hidden"
             >
-              <li className="hover:bg-indigo-700 rounded-lg">
+              <li className="hover:bg-blue-700 rounded-lg">
                 <Link to="/">
                   <span>Home</span>
                 </Link>
               </li>
               <li>
                 <details>
-                  <summary className="hover:bg-indigo-700 rounded-lg">Services</summary>
-                  <ul className="p-2 bg-indigo-600 w-max">
-                    <li className="hover:bg-indigo-800 rounded-lg">
+                  <summary className="hover:bg-blue-700 rounded-lg">Services</summary>
+                  <ul className="p-2 bg-blue-600 w-max">
+                    <li className="hover:bg-blue-800 rounded-lg">
                       <span>Phone Repair</span>
                     </li>
-                    <li className="hover:bg-indigo-800 rounded-lg">
+                    <li className="hover:bg-blue-800 rounded-lg">
                       <span>Laptop Repair</span>
                     </li>
                   </ul>
                 </details>
               </li>
-              <li className="hover:bg-indigo-700 rounded-lg">
+              <li className="hover:bg-blue-700 rounded-lg">
                 <Link to="/about">
                   <span>About</span>
                 </Link>
               </li>
-              <li className="hover:bg-indigo-700 rounded-lg">
+              <li className="hover:bg-blue-700 rounded-lg">
                 <span>Contact Us</span>
               </li>
               {currentUser ? (
-                <li className="hover:bg-indigo-700 rounded-lg">
+                <li className="hover:bg-blue-700 rounded-lg">
                   <Link to="/profile">
                     <span>Profile</span>
                   </Link>
                 </li>
               ) : (
                 <>
-                  <li className="hover:bg-indigo-700 rounded-lg">
+                  <li className="hover:bg-blue-700 rounded-lg">
                     <Link to="sign-in">
                       <span>Sign In</span>
                     </Link>
                   </li>
-                  <li className="hover:bg-indigo-700 rounded-lg">
+                  <li className="hover:bg-blue-700 rounded-lg">
                     <Link to="sign-up">
                       <span>Sign Up</span>
                     </Link>
@@ -86,46 +86,46 @@ export default function Header() {
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
-            <li className="hover:bg-indigo-700 rounded-lg">
+            <li className="hover:bg-blue-700 rounded-lg">
               <Link to="/">
                 <span>Home</span>
               </Link>
             </li>
             <li>
               <details>
-                <summary className="hover:bg-indigo-700 rounded-lg">Services</summary>
-                <ul className="p-2 bg-indigo-600 w-max">
-                  <li className="hover:bg-indigo-800 rounded-lg">
+                <summary className="hover:bg-blue-700 rounded-lg">Services</summary>
+                <ul className="p-2 bg-blue-600 w-max">
+                  <li className="hover:bg-blue-800 rounded-lg">
                     <span>Phone Repair</span>
                   </li>
-                  <li className="hover:bg-indigo-800 rounded-lg">
+                  <li className="hover:bg-blue-800 rounded-lg">
                     <span>Laptop Repair</span>
                   </li>
                 </ul>
               </details>
             </li>
-            <li className="hover:bg-indigo-700 rounded-lg">
+            <li className="hover:bg-blue-700 rounded-lg">
               <Link to="/about">
                 <span>About</span>
               </Link>
             </li>
-            <li className="hover:bg-indigo-700 rounded-lg">
+            <li className="hover:bg-blue-700 rounded-lg">
               <span>Contact Us</span>
             </li>
             {currentUser ? (
-              <li className="hover:bg-indigo-700 rounded-lg">
+              <li className="hover:bg-blue-700 rounded-lg">
                 <Link to="/profile">
                   <span>Profile</span>
                 </Link>
               </li>
             ) : (
               <>
-                <li className="hover:bg-indigo-700 rounded-lg">
+                <li className="hover:bg-blue-700 rounded-lg">
                   <Link to="sign-in">
                     <span>Sign In</span>
                   </Link>
                 </li>
-                <li className="hover:bg-indigo-700 rounded-lg">
+                <li className="hover:bg-blue-700 rounded-lg">
                   <Link to="sign-up">
                     <span>Sign Up</span>
                   </Link>
@@ -136,7 +136,7 @@ export default function Header() {
         </div>
         <div className="navbar-end">
           {currentUser && (
-            <span className="btn p-3 bg-transparent border-none text-white rounded-full uppercase hover:bg-indigo-600">
+            <span className="btn p-3 bg-transparent border-none text-white rounded-full uppercase hover:bg-blue-600">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
