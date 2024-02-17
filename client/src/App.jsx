@@ -4,6 +4,7 @@ import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import PrivateRoute from './components/PrivateRoute';
+import PublicRoute from './components/PublicRoute';
 import About from './pages/About';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
@@ -21,8 +22,10 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route path="/profile" element={<Profile />} />
           </Route>
-          <Route path="/sign-in" element={<Signin />} />
-          <Route path="/sign-up" element={<Signup />} />
+          <Route element={<PublicRoute />}>
+            <Route path="/sign-in" element={<Signin />} />
+            <Route path="/sign-up" element={<Signup />} />
+          </Route>
           <Route path="*" element={<Home />} />
         </Routes>
       </div>
