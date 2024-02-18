@@ -5,9 +5,11 @@ export default function Signup() {
   const [formData, setFormData] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [validatePass, setValidatePass] = useState();
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
+  console.log(formData);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -31,6 +33,11 @@ export default function Signup() {
       setError(true);
     }
   };
+
+  const handlePassword = async (e) => {
+    const checkPassword = e.target.value;
+    checkPassword === formData.password ? setValidatePass(true) : setValidatePass(false);
+  };
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl text-center font-semibold my-7">Sign Up</h1>
@@ -40,7 +47,7 @@ export default function Signup() {
           name="username"
           id="username"
           placeholder="Username"
-          className="bg-slate-100 p-3 rounded-lg"
+          className="input input-bordered bg-slate-100 p-3 rounded-lg"
           onChange={handleChange}
           required
         />
@@ -49,7 +56,7 @@ export default function Signup() {
           name="email"
           id="email"
           placeholder="E-mail"
-          className="bg-slate-100 p-3 rounded-lg"
+          className="input input-bordered bg-slate-100 p-3 rounded-lg"
           onChange={handleChange}
           required
         />
@@ -58,14 +65,34 @@ export default function Signup() {
           name="password"
           id="password"
           placeholder="Password"
-          className="bg-slate-100 p-3 rounded-lg"
+          className="input input-bordered bg-slate-100 p-3 rounded-lg"
           onChange={handleChange}
+          onBlur={handlePassword}
           required
         />
-        <select className="bg-slate-100 p-3 rounded-lg" name="" id="">
-          <option value="">--User Type--</option>
-          <option value="">Owner</option>
-          <option value="">Consumer</option>
+        <input
+          type="password"
+          name="repeat_password"
+          id="repeat_password"
+          placeholder="Repeat Password"
+          className="input input-bordered bg-slate-100 p-3 rounded-lg"
+          onBlur={handlePassword}
+          required
+        />
+        {validatePass === false ? <span className="text-red-700">Password does not match!</span> : ''}
+        <select
+          className="select select-bordered bg-slate-100 p-3 rounded-lg"
+          name="userType"
+          id="userType"
+          defaultValue={'DEFAULT'}
+          required
+          onChange={handleChange}
+        >
+          <option value="DEFAULT" disabled>
+            Select user type
+          </option>
+          <option value="1">Owner</option>
+          <option value="0">User</option>
         </select>
         <button
           disabled={loading}
