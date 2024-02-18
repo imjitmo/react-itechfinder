@@ -9,9 +9,9 @@ export default function Signup() {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
-  console.log(formData);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (validatePass === false) return;
     try {
       setLoading(true);
       setError(false);
