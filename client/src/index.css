@@ -7,3 +7,7 @@
 * {
   @apply font-notosans;
 }
+
+.menu li span {
+  @apply text-white;
+}

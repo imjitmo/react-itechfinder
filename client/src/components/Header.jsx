@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { signOut } from '../redux/user/user.slice';
 
 export default function Header() {
@@ -43,9 +43,9 @@ export default function Header() {
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-blue-600 rounded-box w-52 lg:hidden"
             >
               <li className="hover:bg-blue-700 rounded-lg">
-                <Link to="/">
+                <NavLink to="/">
                   <span>Home</span>
-                </Link>
+                </NavLink>
               </li>
               <li>
                 <details>
@@ -61,9 +61,9 @@ export default function Header() {
                 </details>
               </li>
               <li className="hover:bg-blue-700 rounded-lg">
-                <Link to="/about">
+                <NavLink to="/about">
                   <span>About</span>
-                </Link>
+                </NavLink>
               </li>
               <li className="hover:bg-blue-700 rounded-lg">
                 <span>Contact Us</span>
@@ -73,29 +73,29 @@ export default function Header() {
               ) : (
                 <>
                   <li className="hover:bg-blue-700 rounded-lg">
-                    <Link to="sign-in">
+                    <NavLink to="sign-in">
                       <span>Sign In</span>
-                    </Link>
+                    </NavLink>
                   </li>
                   <li className="hover:bg-blue-700 rounded-lg">
-                    <Link to="sign-up">
+                    <NavLink to="sign-up">
                       <span>Sign Up</span>
-                    </Link>
+                    </NavLink>
                   </li>
                 </>
               )}
             </ul>
           </div>
-          <Link to="/">
+          <NavLink to="/">
             <span className="btn btn-ghost text-xl">iTechFinder</span>
-          </Link>
+          </NavLink>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li className="hover:bg-blue-700 rounded-lg">
-              <Link to="/">
+              <NavLink to="/">
                 <span>Home</span>
-              </Link>
+              </NavLink>
             </li>
             <li>
               <details>
@@ -111,9 +111,9 @@ export default function Header() {
               </details>
             </li>
             <li className="hover:bg-blue-700 rounded-lg">
-              <Link to="/about">
+              <NavLink to="/about">
                 <span>About</span>
-              </Link>
+              </NavLink>
             </li>
             <li className="hover:bg-blue-700 rounded-lg">
               <span>Contact Us</span>
@@ -126,14 +126,14 @@ export default function Header() {
                   <summary className="hover:bg-blue-700 rounded-lg">Connect with us</summary>
                   <ul className="p-2 bg-blue-600 w-max">
                     <li className="hover:bg-blue-800 rounded-lg">
-                      <Link to="sign-in">
+                      <NavLink to="sign-in">
                         <span>Sign In</span>
-                      </Link>
+                      </NavLink>
                     </li>
                     <li className="hover:bg-blue-800 rounded-lg">
-                      <Link to="sign-up">
+                      <NavLink to="sign-up">
                         <span>Sign Up</span>
-                      </Link>
+                      </NavLink>
                     </li>
                   </ul>
                 </details>
@@ -168,9 +168,9 @@ export default function Header() {
                 className="dropdown-content z-[1] menu p-2 shadow rounded-box w-52 bg-blue-600"
               >
                 <li className="hover:bg-blue-800 rounded-lg">
-                  <Link to="/profile">
+                  <NavLink to="/profile">
                     <span>Profile</span>
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="hover:bg-blue-800 rounded-lg">
                   <span className="text-white cursor-pointer" onClick={handleSignOut}>
