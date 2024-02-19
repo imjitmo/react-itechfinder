@@ -25,11 +25,11 @@ export default function Home() {
                 />
               </svg>
 
-              <select className="grow bg-slate-100" name="" id="">
-                <option disabled selected>
+              <select className="grow bg-slate-100" name="" id="" defaultValue={'DEFAULT'}>
+                <option value="DEFAULT" disabled>
                   What can we fix for you?
                 </option>
-                <option value=""></option>
+                <option value="android">Android Phone</option>
               </select>
             </label>
             <label className="input input-bordered w-full max-w-xs flex items-center gap-2 p-5 bg-slate-100">
