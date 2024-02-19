@@ -1,31 +1,38 @@
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import ProfileCard from '../components/ProfileCard.jsx';
+import ProfileUpdate from '../components/ProfileUpdate.jsx';
 import { app } from '../firebase/firebase.js';
-import {
-  deleteUserFailure,
-  deleteUserStart,
-  deleteUserSuccess,
-  updateUserFailure,
-  updateUserStart,
-  updateUserSuccess,
-} from '../redux/user/user.slice.js';
+import { updateUserFailure, updateUserStart, updateUserSuccess } from '../redux/user/user.slice.js';
 
 export default function Profile() {
-  const { currentUser, loading, error } = useSelector((state) => state.user);
+  const { currentUser, loading } = useSelector((state) => state.user);
   const [image, setImage] = useState(undefined);
   const [uploadPercent, setUplaodPercent] = useState(0);
   const [uploadError, setUploadError] = useState(false);
   const fileRef = useRef(null);
-  const [formData, setFormData] = useState({});
+  const [photoData, setPhotoData] = useState({});
   const dispatch = useDispatch();
   const [updateSuccess, setUpdateSuccess] = useState(false);
+  const [imageName, setImageName] = useState(undefined);
+  const [showImage, setShowImage] = useState(undefined);
+  const [viewEdit, setViewEdit] = useState(false);
 
   useEffect(() => {
     if (image) {
-      handleFileUpload(image);
+      setImageName(image.name);
+      setShowImage(URL.createObjectURL(image));
+      // handleFileUpload(image);
     }
   }, [image]);
+
+  useEffect(() => {
+    if (photoData.profilePicture) {
+      filePhotoUpdate();
+    }
+  }, [photoData.profilePicture]);
+
   const handleFileUpload = async (image) => {
     const storage = getStorage(app);
     const fileName = `${new Date().getTime()}_${Math.floor(Math.random() * 10000).toString()}_${image.name}`;
@@ -43,19 +50,13 @@ export default function Profile() {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>
-          setFormData({ ...formData, profilePicture: downloadURL })
+          setPhotoData({ ...photoData, profilePicture: downloadURL })
         );
       }
     );
   };
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const filePhotoUpdate = async () => {
     try {
       dispatch(updateUserStart());
       const res = await fetch(`/api/user/update/${currentUser._id}`, {
@@ -63,7 +64,7 @@ export default function Profile() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(photoData),
       });
       const data = await res.json();
       if (data.success === false) {
@@ -72,32 +73,23 @@ export default function Profile() {
       }
       dispatch(updateUserSuccess(data));
       setUpdateSuccess(true);
+      setImage(undefined);
+      setImageName(undefined);
+      setShowImage(undefined);
     } catch (err) {
       dispatch(updateUserFailure(err));
     }
   };
 
-  const handleDeleteAccount = async () => {
-    try {
-      dispatch(deleteUserStart());
-      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
-        method: 'DELETE',
-      });
-      const data = await res.json();
-      if (data.success === false) {
-        dispatch(deleteUserFailure(data));
-        return;
-      }
-      dispatch(deleteUserSuccess(data));
-    } catch (err) {
-      console.log(err);
-    }
+  const cancelUpload = () => {
+    setImage(undefined);
+    setImageName(undefined);
+    setShowImage(undefined);
   };
-
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl font-semibold my-7 text-center">Profile</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 my-5">
         <input
           type="file"
           name="picture"
@@ -105,10 +97,11 @@ export default function Profile() {
           ref={fileRef}
           accept="image/*"
           onChange={(e) => setImage(e.target.files[0])}
+          key={image}
           hidden
         />
         <img
-          src={formData.profilePicture || currentUser.profilePicture}
+          src={showImage || photoData.profilePicture || currentUser.profilePicture}
           alt="profile_picture"
           className="h-24 w-24 cursor-pointer rounded-full object-cover self-center"
           onClick={() => fileRef.current.click()}
@@ -118,55 +111,39 @@ export default function Profile() {
             <span className="text-red-700">Error uploading image...</span>
           ) : uploadPercent > 0 && uploadPercent < 100 ? (
             <span className="text-slate-400">Uploading: {uploadPercent}%</span>
-          ) : uploadPercent === 100 ? (
+          ) : uploadPercent === 100 && updateSuccess ? (
             <span className="text-green-700">Image uploaded successfully</span>
           ) : (
-            ''
+            imageName && imageName
           )}
         </p>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          defaultValue={currentUser.username}
-          className="bg-slate-100 rounded-lg p-3"
-          placeholder="username"
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="email"
-          name="email"
-          id="email"
-          defaultValue={currentUser.email}
-          className="bg-slate-100 rounded-lg p-3"
-          placeholder="email"
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          id="password"
-          className="bg-slate-100 rounded-lg p-3"
-          placeholder="password"
-          onChange={handleChange}
-        />
-        <button
-          className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-85 disabled:opacity-65"
-          disabled={loading}
-        >
-          {loading ? <span className="loading loading-dots loading-xs"></span> : 'Update'}
-        </button>
-      </form>
-      <div className="flex mt-5">
-        <p className="text-red-700">{error && 'Something went wrong'}</p>
-        <p className="text-green-700">{updateSuccess && 'Profile updated successfully!'}</p>
+        {showImage && (
+          <p className="flex gap-4 justify-center">
+            <button
+              className="bg-transparent text-green-500 text-sm italic rounded-lg hover:text-green-600 disabled:opacity-50"
+              onClick={() => handleFileUpload(image)}
+              disabled={loading}
+            >
+              Upload
+            </button>
+            <button
+              className="bg-transparent text-red-500 text-sm italic rounded-lg hover:text-red-600 disabled:opacity-50"
+              onClick={cancelUpload}
+              disabled={loading}
+            >
+              Cancel
+            </button>
+          </p>
+        )}
       </div>
+      {viewEdit ? <ProfileUpdate /> : <ProfileCard />}
       <div className="flex justify-between mt-3">
-        <span className="text-red-700 cursor-pointer" onClick={handleDeleteAccount}>
-          Delete Account
-        </span>
+        <button className="text-green-500" hidden={viewEdit} onClick={() => setViewEdit(true)}>
+          Update Information
+        </button>
+        <button className="text-red-500" hidden={!viewEdit} onClick={() => setViewEdit(false)}>
+          Cancel
+        </button>
       </div>
     </div>
   );

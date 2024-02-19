@@ -8,7 +8,7 @@ export default function Header() {
   const handleSignOut = async () => {
     try {
       const res = await fetch('/api/auth/signout');
-      dispatch(signOut());
+      if (res) dispatch(signOut());
     } catch (err) {
       console.log(err);
     }
@@ -121,18 +121,23 @@ export default function Header() {
             {currentUser ? (
               ''
             ) : (
-              <>
-                <li className="hover:bg-blue-700 rounded-lg">
-                  <Link to="sign-in">
-                    <span>Sign In</span>
-                  </Link>
-                </li>
-                <li className="hover:bg-blue-700 rounded-lg">
-                  <Link to="sign-up">
-                    <span>Sign Up</span>
-                  </Link>
-                </li>
-              </>
+              <li>
+                <details>
+                  <summary className="hover:bg-blue-700 rounded-lg">Connect with us</summary>
+                  <ul className="p-2 bg-blue-600 w-max">
+                    <li className="hover:bg-blue-800 rounded-lg">
+                      <Link to="sign-in">
+                        <span>Sign In</span>
+                      </Link>
+                    </li>
+                    <li className="hover:bg-blue-800 rounded-lg">
+                      <Link to="sign-up">
+                        <span>Sign Up</span>
+                      </Link>
+                    </li>
+                  </ul>
+                </details>
+              </li>
             )}
           </ul>
         </div>
