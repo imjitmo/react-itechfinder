@@ -1,3 +1,7 @@
 export default function InformationUpdate() {
-  return <div>InformationUpdate</div>;
+  return (
+    <div>
+      <h1>Information Update</h1>
+    </div>
+  );
 }
