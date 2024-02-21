@@ -7,7 +7,7 @@ export default function Home() {
       />
       <div className="p-3 mx-auto max-w-max">
         <div className="flex flex-col gap-4 my-5">
-          <h1 className="font-black text-4xl capitalize text-blue-800 text-center">Start a repair</h1>
+          <h1 className="header-text text-4xl text-center">Start a repair</h1>
           <form action="" className="flex flex-col lg:flex-row gap-4">
             <label className="input input-bordered w-full max-w-xs flex items-center gap-2 p-5 bg-slate-100">
               <svg
@@ -55,7 +55,7 @@ export default function Home() {
 
               <input type="text" className="grow bg-slate-100" placeholder="Set your location" />
             </label>
-            <button className="btn btn-square bg-blue-800 text-white hover:bg-blue-600 w-full lg:w-16">
+            <button className="primary-btn">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -81,6 +81,53 @@ export default function Home() {
           src="https://firebasestorage.googleapis.com/v0/b/itechfinder-4502f.appspot.com/o/page_photo%2Fimg-2.png?alt=media&token=7086b691-b3fb-4f0f-85ef-51b4f5979842"
           alt=""
         />
+      </div>
+      <div className="max-w-6xl mx-auto my-5 text-center">
+        <h1 className="header-text text-3xl mt-7">What can we fix for you?</h1>
+        <div className="flex flex-col lg:flex-row gap-4 p-3">
+          <div className="front-img">
+            <img
+              src="https://hips.hearstapps.com/hmg-prod/images/gh-index-gamingconsoles-052-print-preview-1659705142.jpg"
+              className="object-fill rounded-lg"
+              alt=""
+            />
+            <p className="text-md">Mobile Phone</p>
+          </div>
+          <div className="front-img">
+            <img
+              src="https://hips.hearstapps.com/hmg-prod/images/gh-index-gamingconsoles-052-print-preview-1659705142.jpg"
+              className="object-fill rounded-lg"
+              alt=""
+            />
+            <p className="text-md">Desktop</p>
+          </div>
+          <div className="front-img">
+            <img
+              src="https://hips.hearstapps.com/hmg-prod/images/gh-index-gamingconsoles-052-print-preview-1659705142.jpg"
+              className="object-fill rounded-lg"
+              alt=""
+            />
+            <p className="text-md">Laptop</p>
+          </div>
+          <div className="front-img">
+            <img
+              src="https://hips.hearstapps.com/hmg-prod/images/gh-index-gamingconsoles-052-print-preview-1659705142.jpg"
+              className="object-fill rounded-lg"
+              alt=""
+            />
+            <p className="text-md">Console</p>
+          </div>
+          <div className="front-img">
+            <img
+              src="https://hips.hearstapps.com/hmg-prod/images/gh-index-gamingconsoles-052-print-preview-1659705142.jpg"
+              className="object-fill rounded-lg"
+              alt=""
+            />
+            <p className="text-md">
+              <span>Appliances</span>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -32,11 +32,7 @@ export default function OAuth(pageType) {
   };
 
   return (
-    <button
-      type="button"
-      onClick={handleGoogleClick}
-      className="bg-red-700 text-white p-3 rounded-lg uppercase hover:opacity-85 disabled:opacity-65"
-    >
+    <button type="button" onClick={handleGoogleClick} className="google-btn uppercase">
       {nameType} WITH GOOGLE
     </button>
   );

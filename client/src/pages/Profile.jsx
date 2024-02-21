@@ -1,6 +1,7 @@
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import InformationCard from '../components/InformationCard.jsx';
 import ProfileCard from '../components/ProfileCard.jsx';
 import ProfileUpdate from '../components/ProfileUpdate.jsx';
 import { app } from '../firebase/firebase.js';
@@ -88,7 +89,7 @@ export default function Profile() {
   };
   return (
     <div className="p-3 max-w-lg mx-auto">
-      <h1 className="text-3xl font-semibold my-7 text-center">Profile</h1>
+      <h1 className="header-text text-3xl my-7 text-center">Profile</h1>
       <div className="flex flex-col gap-4 my-5">
         <input
           type="file"
@@ -144,6 +145,12 @@ export default function Profile() {
         <button className="text-red-500" hidden={!viewEdit} onClick={() => setViewEdit(false)}>
           Cancel
         </button>
+      </div>
+      <div className="mt-7">
+        <InformationCard />
+      </div>
+      <div className="flex flex-col my-2">
+        <button className="primary-btn uppercase">Edit Information</button>
       </div>
     </div>
   );

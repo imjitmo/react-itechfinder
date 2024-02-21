@@ -8,6 +8,16 @@ export const signup = async (req, res, next) => {
   const hashPassword = bcryptjs.hashSync(password, 10);
 
   try {
+    const checkUsername = await Users.findOne({ username });
+    const checkEmail = await Users.findOne({ email });
+    if (checkUsername) {
+      res.status(500).json({ success: false, message: 'username already exists' });
+      return;
+    }
+    if (checkEmail) {
+      res.status(500).json({ success: false, message: 'email already exists' });
+      return;
+    }
     const newUser = new Users({ username, email, password: hashPassword, userType });
     await newUser.save();
     res.status(201).json({ message: 'User created successfully!' });

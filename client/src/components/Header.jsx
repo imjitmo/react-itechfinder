@@ -42,6 +42,13 @@ export default function Header() {
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-blue-600 rounded-box w-52 lg:hidden"
             >
+              {currentUser && currentUser.isAdmin && (
+                <li className="hover:bg-blue-700 rounded-lg">
+                  <NavLink to="/dashboard">
+                    <span>Dashboard</span>
+                  </NavLink>
+                </li>
+              )}
               <li className="hover:bg-blue-700 rounded-lg">
                 <NavLink to="/">
                   <span>Home</span>
@@ -68,9 +75,7 @@ export default function Header() {
               <li className="hover:bg-blue-700 rounded-lg">
                 <span>Contact Us</span>
               </li>
-              {currentUser ? (
-                ''
-              ) : (
+              {!currentUser && (
                 <>
                   <li className="hover:bg-blue-700 rounded-lg">
                     <NavLink to="sign-in">
@@ -92,6 +97,13 @@ export default function Header() {
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
+            {currentUser && currentUser.isAdmin && (
+              <li className="hover:bg-blue-700 rounded-lg">
+                <NavLink to="/dashboard">
+                  <span>Dashboard</span>
+                </NavLink>
+              </li>
+            )}
             <li className="hover:bg-blue-700 rounded-lg">
               <NavLink to="/">
                 <span>Home</span>
@@ -118,9 +130,7 @@ export default function Header() {
             <li className="hover:bg-blue-700 rounded-lg">
               <span>Contact Us</span>
             </li>
-            {currentUser ? (
-              ''
-            ) : (
+            {!currentUser && (
               <li>
                 <details>
                   <summary className="hover:bg-blue-700 rounded-lg">Connect with us</summary>
@@ -172,6 +182,13 @@ export default function Header() {
                     <span>Profile</span>
                   </NavLink>
                 </li>
+                {currentUser && currentUser.userType === 1 && (
+                  <li className="hover:bg-blue-800 rounded-lg">
+                    <NavLink to="/shop">
+                      <span>My Shop</span>
+                    </NavLink>
+                  </li>
+                )}
                 <li className="hover:bg-blue-800 rounded-lg">
                   <span className="text-white cursor-pointer" onClick={handleSignOut}>
                     Sign out

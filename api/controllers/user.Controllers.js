@@ -6,11 +6,21 @@ export const updateUser = async (req, res, next) => {
   if (req.user.id !== req.params.id) {
     return next(errorHandler(401, 'Unauthorized request'));
   }
+  const { email, username } = req.body;
   try {
     if (req.body.password) {
       req.body.password = bcryptjs.hashSync(req.body.password, 10);
     }
-
+    const checkEmail = await Users.findOne({ email });
+    const checkUsername = await Users.findOne({ username });
+    if (checkEmail) {
+      res.status(500).json({ success: false, message: 'E-mail already taken' });
+      return;
+    }
+    if (checkUsername) {
+      res.status(500).json({ success: false, message: 'Username already taken' });
+      return;
+    }
     const updateUser = await Users.findByIdAndUpdate(
       req.params.id,
       {

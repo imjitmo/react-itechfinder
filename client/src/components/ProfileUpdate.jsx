@@ -13,7 +13,7 @@ export default function ProfileUpdate() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    if (formData.username === currentUser.username && formData.email === currentUser.email) return;
     try {
       dispatch(updateUserStart());
       const res = await fetch(`/api/user/update/${currentUser._id}`, {
@@ -24,7 +24,9 @@ export default function ProfileUpdate() {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
+      console.log(data);
       if (data.success === false) {
+        console.log('error');
         dispatch(updateUserFailure(data));
         return;
       }
@@ -52,6 +54,7 @@ export default function ProfileUpdate() {
   //     console.log(err);
   //   }
   // };
+  console.log(loading);
   return (
     <div>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -83,10 +86,7 @@ export default function ProfileUpdate() {
           placeholder="password"
           onChange={handleChange}
         />
-        <button
-          className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-85 disabled:opacity-65"
-          disabled={loading}
-        >
+        <button className="primary-btn uppercase" disabled={loading}>
           {loading ? <span className="loading loading-dots loading-xs"></span> : 'Update'}
         </button>
       </form>

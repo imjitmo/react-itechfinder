@@ -8,6 +8,7 @@ import PublicRoute from './components/PublicRoute';
 import About from './pages/About';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
+import Shop from './pages/Shop';
 import Signin from './pages/Signin';
 import Signup from './pages/Signup';
 
@@ -21,6 +22,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route element={<PrivateRoute />}>
             <Route path="/profile" element={<Profile />} />
+            <Route path="/shop" element={<Shop />} />
           </Route>
           <Route element={<PublicRoute />}>
             <Route path="/sign-in" element={<Signin />} />

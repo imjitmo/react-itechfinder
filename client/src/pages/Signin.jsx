@@ -38,7 +38,7 @@ export default function Signin() {
   };
   return (
     <div className="p-3 max-w-lg mx-auto">
-      <h1 className="text-3xl text-center font-semibold my-7">Sign In</h1>
+      <h1 className="header-text text-3xl text-center my-7">Sign In</h1>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <input
           type="email"
@@ -58,10 +58,7 @@ export default function Signin() {
           onChange={handleChange}
           required
         />
-        <button
-          disabled={loading}
-          className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-85 disabled:opacity-65"
-        >
+        <button disabled={loading} className="primary-btn uppercase">
           {loading ? <span className="loading loading-dots loading-xs"></span> : 'Sign In'}
         </button>
         <OAuth nameType="Sign In" />
@@ -69,7 +66,7 @@ export default function Signin() {
       <div className="flex gap-2 mt-5">
         <p>Don&apos;t have an account?</p>
         <Link to="/sign-up">
-          <span className="text-blue-500 hover:text-blue-700">Sign Up</span>
+          <span className="text-blue-500 hover:text-blue-700 font-semibold">Sign Up</span>
         </Link>
       </div>
       <p className="text-red-700 mt-5 capitalize">{error ? error.message || 'Something went wrong' : ''}</p>
