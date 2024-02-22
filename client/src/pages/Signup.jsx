@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import OAuth from '../components/OAuth';
 export default function Signup() {
   const [formData, setFormData] = useState({});
@@ -7,6 +7,7 @@ export default function Signup() {
   const [error, setError] = useState(false);
   const [validatePass, setValidatePass] = useState();
   const [errorMessage, setErrorMessage] = useState();
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
@@ -30,6 +31,7 @@ export default function Signup() {
         setErrorMessage(data.message);
         return;
       }
+      navigate('/');
     } catch (error) {
       setLoading(false);
       setError(true);
