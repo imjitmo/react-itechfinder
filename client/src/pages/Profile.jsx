@@ -139,10 +139,18 @@ export default function Profile() {
       </div>
       {viewEdit ? <ProfileUpdate /> : <ProfileCard />}
       <div className="flex justify-between mt-3">
-        <button className="text-green-500" hidden={viewEdit} onClick={() => setViewEdit(true)}>
+        <button
+          className="text-green-500"
+          hidden={viewEdit}
+          onClick={() => setViewEdit((prevState) => !prevState)}
+        >
           Update Information
         </button>
-        <button className="text-red-500" hidden={!viewEdit} onClick={() => setViewEdit(false)}>
+        <button
+          className="text-red-500"
+          hidden={!viewEdit}
+          onClick={() => setViewEdit((prevState) => !prevState)}
+        >
           Cancel
         </button>
       </div>

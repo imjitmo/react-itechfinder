@@ -39,6 +39,7 @@ export default function Signup() {
   };
 
   const handlePassword = async () => {
+    if (!formData.repeat_password) return;
     formData.repeat_password === formData.password ? setValidatePass(true) : setValidatePass(false);
   };
 
