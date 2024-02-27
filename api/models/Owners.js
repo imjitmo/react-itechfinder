@@ -30,10 +30,23 @@ const OwnerSchema = new mongoose.Schema(
         required: true,
       },
     },
-    repairOffers: {
+    shopType: {
       type: Array,
       required: true,
       default: [],
+    },
+    gadgetList: {
+      type: Array,
+      required: true,
+      default: [],
+    },
+    permitNo: {
+      type: String,
+      required: true,
+    },
+    permitPhoto: {
+      type: String,
+      required: true,
     },
   },
   { timestamps: true }
