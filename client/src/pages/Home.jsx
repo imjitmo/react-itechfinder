@@ -84,7 +84,7 @@ export default function Home() {
       </div>
       <div className="max-w-6xl mx-auto my-5 text-center">
         <h1 className="header-text text-3xl mt-7">What can we fix for you?</h1>
-        <div className="flex flex-col lg:flex-row gap-4 p-3">
+        <div className="flex flex-col lg:flex-row gap-4 p-3 justify-center items-center">
           <div className="front-img">
             <img
               src="https://firebasestorage.googleapis.com/v0/b/itechfinder-4502f.appspot.com/o/page_photo%2Fmobile.png?alt=media&token=9aa3eaea-cbed-4101-9055-43e194ffbda0"

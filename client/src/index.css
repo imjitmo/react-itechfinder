@@ -30,6 +30,6 @@
   }
 
   .front-img {
-    @apply w-auto hover:opacity-65 border-2 p-5 rounded-lg;
+    @apply w-auto hover:opacity-65 border-2 p-5 rounded-lg object-center;
   }
 }
