@@ -91,7 +91,7 @@ export default function Home() {
               className="object-fill rounded-lg"
               alt=""
             />
-            <p className="text-md">Mobile Phone</p>
+            <p className="text-md">Smartphone</p>
           </div>
           <div className="front-img">
             <img

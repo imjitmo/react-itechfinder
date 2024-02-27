@@ -20,6 +20,10 @@ const gadgets = [
     value: 'desktop',
   },
   {
+    label: 'Console',
+    value: 'console',
+  },
+  {
     label: 'Appliances',
     value: 'appliances',
   },

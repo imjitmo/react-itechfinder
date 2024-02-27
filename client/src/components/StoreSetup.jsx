@@ -13,12 +13,14 @@ export default function StoreSetup() {
   const animatedComponents = makeAnimated();
 
   const handleGadgetChange = (selectedGadgets) => {
-    selectedGadgets.map((selectedValue) => setIsGadgets([...isGadgets, selectedValue.value]));
+    const finalGadgetList = selectedGadgets.map((item) => item.value);
+    setIsGadgets(finalGadgetList);
+  };
+  const handleStoreChange = (selectedStores) => {
+    const finalStoreList = selectedStores.map((store) => store.value);
+    setIsStore(finalStoreList);
   };
 
-  const handleStoreChange = (selectedStores) => {
-    selectedStores.map((selectedValue) => setIsStore([...isStore, selectedValue.value]));
-  };
   return (
     <div>
       <h1 className="header-text text-3xl text-center my-7">My Shop</h1>
