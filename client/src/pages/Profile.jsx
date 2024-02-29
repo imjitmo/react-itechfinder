@@ -113,7 +113,7 @@ export default function Profile() {
           ) : uploadPercent > 0 && uploadPercent < 100 ? (
             <span className="text-slate-400">Uploading: {uploadPercent}%</span>
           ) : uploadPercent === 100 && updateSuccess ? (
-            <span className="text-green-700">Image uploaded successfully</span>
+            <span className="text-green-700">Photo updated successfully</span>
           ) : (
             imageName && imageName
           )}

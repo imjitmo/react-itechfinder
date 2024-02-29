@@ -6,20 +6,9 @@ export const updateUser = async (req, res, next) => {
   if (req.user.id !== req.params.id) {
     return next(errorHandler(401, 'Unauthorized request'));
   }
-  const { email, username } = req.body;
   try {
     if (req.body.password) {
       req.body.password = bcryptjs.hashSync(req.body.password, 10);
-    }
-    const checkEmail = await Users.findOne({ email });
-    const checkUsername = await Users.findOne({ username });
-    if (checkEmail) {
-      res.status(500).json({ success: false, message: 'E-mail already taken' });
-      return;
-    }
-    if (checkUsername) {
-      res.status(500).json({ success: false, message: 'Username already taken' });
-      return;
     }
     const updateUser = await Users.findByIdAndUpdate(
       req.params.id,
@@ -47,6 +36,33 @@ export const deleteUser = async (req, res, next) => {
   try {
     await Users.findByIdAndDelete(req.params.id);
     res.status(200).json('User has been deleted...');
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const checkUser = async (req, res, next) => {
+  if (req.user.id !== req.params.id) {
+    return next(errorHandler(401, 'Unauthorized request'));
+  }
+  try {
+    console.log(req.params.username);
+    const checkUsername = await Users.findOne({ username: req.params.username });
+    if (checkUsername) return res.status(409).json({ success: false, message: 'username is already taken.' });
+    return res.status(202).json({ success: true, message: 'username is available.' });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const checkEmail = async (req, res, next) => {
+  if (req.user.id !== req.params.id) {
+    return next(errorHandler(401, 'Unauthorized request'));
+  }
+  try {
+    const checkUserEmail = await Users.findOne({ email: req.params.email });
+    if (checkUserEmail) return res.status(409).json({ success: false, message: 'email is already taken.' });
+    return res.status(202).json({ success: true, message: 'email is available.' });
   } catch (err) {
     next(err);
   }
