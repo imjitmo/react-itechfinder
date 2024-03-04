@@ -1,32 +1,93 @@
-import { useState } from 'react';
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
+import { app } from '../firebase/firebase.js';
 import gadgets from '../hooks/gadgets';
 import storeType from '../hooks/storeType';
+import { updateUserFailure, updateUserStart, updateUserSuccess } from '../redux/user/user.slice.js';
 
 export default function StoreSetup() {
+  const { currentUser, loading, error } = useSelector((state) => state.user);
   const [showSetup, setShowSetup] = useState(false);
-  const [isGadgets, setIsGadgets] = useState([]);
-  const [isStore, setIsStore] = useState([]);
-  const [isPermit, setIsPermit] = useState();
-  const [ownerData, setOwnerData] = useState({});
+  const [formData, setFormData] = useState({});
   const animatedComponents = makeAnimated();
+  const [image, setImage] = useState(undefined);
+  const [uploadPercent, setUplaodPercent] = useState(0);
+  const [uploadError, setUploadError] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (image) {
+      handleFileUpload(image);
+    }
+  }, [image]);
+  const handleFileUpload = async (image) => {
+    const storage = getStorage(app);
+    const fileName = `${new Date().getTime()}_${Math.floor(Math.random() * 10000).toString()}_${image.name}`;
+    const storageRef = ref(storage, `docs_photo/${fileName}`);
+    const uploadTask = uploadBytesResumable(storageRef, image);
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setUplaodPercent(Math.round(progress));
+      },
+      (error) => {
+        setUploadError(true);
+        console.log(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>
+          setFormData({ ...formData, permitPhoto: downloadURL })
+        );
+      }
+    );
+  };
 
   const handleGadgetChange = (selectedGadgets) => {
     const finalGadgetList = selectedGadgets.map((item) => item.value);
-    setIsGadgets(finalGadgetList);
+    setFormData({ ...formData, gadgetList: finalGadgetList });
   };
   const handleStoreChange = (selectedStores) => {
     const finalStoreList = selectedStores.map((store) => store.value);
-    setIsStore(finalStoreList);
+    setFormData({ ...formData, shopType: finalStoreList });
+  };
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.permitPhoto || formData.permitPhoto === undefined || formData.permitPhoto === '') {
+      return;
+    }
+    try {
+      dispatch(updateUserStart());
+      const res = await fetch(`/api/store/setup/${currentUser._id}/${currentUser.username}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(updateUserFailure(data));
+        return;
+      }
+      dispatch(updateUserSuccess(data));
+    } catch (error) {
+      dispatch(updateUserFailure(error));
+    }
+  };
   return (
     <div>
       <h1 className="header-text text-3xl text-center my-7">My Shop</h1>
       <div className="flex flex-col gap-4 my-5">
         {showSetup && (
-          <form action="" className="flex flex-col gap-4">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <section id="forShopName" className="flex flex-col gap-2">
               <span className="text-xs font-semibold italic pl-2">Shop&apos;s Name</span>
               <label className="input input-bordered flex items-center gap-2">
@@ -51,6 +112,7 @@ export default function StoreSetup() {
                   name="shopName"
                   className="grow"
                   placeholder="Shop's name"
+                  onChange={handleChange}
                   required
                 />
               </label>
@@ -79,6 +141,7 @@ export default function StoreSetup() {
                   name="ownerName"
                   className="grow"
                   placeholder="Owner's name"
+                  onChange={handleChange}
                   required
                 />
               </label>
@@ -134,11 +197,25 @@ export default function StoreSetup() {
                       d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
                     />
                   </svg>
-                  <input type="text" id="shopStreet" className="grow" placeholder="Street" required />
+                  <input
+                    type="text"
+                    id="shopStreet"
+                    className="grow"
+                    placeholder="Street"
+                    onChange={handleChange}
+                    required
+                  />
                 </label>
                 <label>
-                  <select name="shopBarangay" id="" className="select select-bordered grow" required>
+                  <select
+                    name="shopBarangay"
+                    id="shopBarangay"
+                    className="select select-bordered grow"
+                    onChange={handleChange}
+                    required
+                  >
                     <option value="">Barangay</option>
+                    <option value="brgy">Brgy</option>
                   </select>
                 </label>
               </div>
@@ -161,16 +238,39 @@ export default function StoreSetup() {
                   />
                 </svg>
 
-                <input type="text" id="permitNo" className="grow" placeholder="DTI Permit #" required />
+                <input
+                  type="text"
+                  id="permitNo"
+                  className="grow"
+                  placeholder="DTI Permit #"
+                  onChange={handleChange}
+                  required
+                />
               </label>
             </section>
             <section id="forPermitDocs">
               <label className="flex flex-col gap-2">
                 <span className="uppercase text-sm font-bold">Upload DTI Permit</span>
-                <input type="file" id="permitPhoto" className="file-input file-input-primary grow" />
-                {isPermit && <button className="green-btn">Upload</button>}
+                <input
+                  type="file"
+                  id="permitPhoto"
+                  className="file-input file-input-primary grow"
+                  accept="image/*"
+                  onChange={(e) => setImage(e.target.files[0])}
+                />
               </label>
-              <span className="text-xs font-semibold italic">JPEG, JPG, PNG and PDF (Max: 4.00 MB)</span>
+              <span className="text-xs font-semibold italic">JPEG, JPG, PNG (Max: 4.00 MB) only</span>
+              <p className="text-sm self-center">
+                {uploadError ? (
+                  <span className="text-red-700">Error uploading image...</span>
+                ) : uploadPercent > 0 && uploadPercent < 100 ? (
+                  <span className="text-slate-400">Uploading: {uploadPercent}%</span>
+                ) : uploadPercent === 100 ? (
+                  <span className="text-green-700">Document uploaded successfully!</span>
+                ) : (
+                  ''
+                )}
+              </p>
             </section>
             <section id="forButton">
               <div className="flex flex-col lg:flex-row gap-2">
@@ -180,7 +280,15 @@ export default function StoreSetup() {
                 >
                   Cancel
                 </span>
-                <button className="primary-btn grow order-first lg:order-last lg:flex-auto">Setup</button>
+                <button
+                  className="primary-btn grow order-first lg:order-last lg:flex-auto"
+                  disabled={loading}
+                >
+                  {loading ? <span className="loading loading-dots loading-xs"></span> : 'Setup'}
+                </button>
+              </div>
+              <div className="flex mt-5">
+                <p className="text-red-700">{error && 'Something went wrong'}</p>
               </div>
             </section>
           </form>

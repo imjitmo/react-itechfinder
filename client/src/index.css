@@ -32,4 +32,8 @@
   .front-img {
     @apply w-auto hover:opacity-65 border-2 p-5 rounded-lg object-center;
   }
+
+  .menu-img {
+    @apply object-fill rounded-lg lg:hover:rotate-6 transition-all duration-300;
+  }
 }

@@ -46,7 +46,6 @@ export const checkUser = async (req, res, next) => {
     return next(errorHandler(401, 'Unauthorized request'));
   }
   try {
-    console.log(req.params.username);
     const checkUsername = await Users.findOne({ username: req.params.username });
     if (checkUsername) return res.status(409).json({ success: false, message: 'username is already taken.' });
     return res.status(202).json({ success: true, message: 'username is available.' });

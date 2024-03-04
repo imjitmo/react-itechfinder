@@ -74,7 +74,7 @@ export default function Home() {
           </form>
         </div>
       </div>
-
+      <div className="bg-[url('https://firebasestorage.googleapis.com/v0/b/itechfinder-4502f.appspot.com/o/page_photo%2Fbanner-top.png?alt=media&token=62166926-9269-4a87-af69-d1eb09bbe9b0')]"></div>
       <div className="max-w-full mx-auto my-5">
         <img
           className="object-cover w-full h-auto"
@@ -88,7 +88,7 @@ export default function Home() {
           <div className="front-img">
             <img
               src="https://firebasestorage.googleapis.com/v0/b/itechfinder-4502f.appspot.com/o/page_photo%2Fmobile.png?alt=media&token=9aa3eaea-cbed-4101-9055-43e194ffbda0"
-              className="object-fill rounded-lg"
+              className="menu-img"
               alt=""
             />
             <p className="text-md">Smartphone</p>
@@ -96,7 +96,7 @@ export default function Home() {
           <div className="front-img">
             <img
               src="https://firebasestorage.googleapis.com/v0/b/itechfinder-4502f.appspot.com/o/page_photo%2Fdesktop.png?alt=media&token=7398581d-2105-4715-89aa-ba60289628f1"
-              className="object-fill rounded-lg"
+              className="menu-img"
               alt=""
             />
             <p className="text-md">Desktop</p>
@@ -104,7 +104,7 @@ export default function Home() {
           <div className="front-img">
             <img
               src="https://firebasestorage.googleapis.com/v0/b/itechfinder-4502f.appspot.com/o/page_photo%2Flaptop.png?alt=media&token=ab533277-b660-4f2b-b9f6-8b795d685321"
-              className="object-fill rounded-lg"
+              className="menu-img"
               alt=""
             />
             <p className="text-md">Laptop</p>
@@ -112,7 +112,7 @@ export default function Home() {
           <div className="front-img">
             <img
               src="https://firebasestorage.googleapis.com/v0/b/itechfinder-4502f.appspot.com/o/page_photo%2Fconsole.png?alt=media&token=730880bd-52d7-4fad-a7cd-cb14f1c4bba0"
-              className="object-fill rounded-lg"
+              className="menu-img"
               alt=""
             />
             <p className="text-md">Console</p>
@@ -120,7 +120,7 @@ export default function Home() {
           <div className="front-img">
             <img
               src="https://firebasestorage.googleapis.com/v0/b/itechfinder-4502f.appspot.com/o/page_photo%2Fappliances.png?alt=media&token=5c5b1b7a-06e4-46b7-bab7-5042e3ef9715"
-              className="object-fill rounded-lg"
+              className="menu-img"
               alt=""
             />
             <p className="text-md">

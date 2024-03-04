@@ -93,7 +93,6 @@ export default function ProfileUpdate() {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      console.log(data);
       if (data.success === false) {
         setIsEmailAvailable({ success: false, fail: true, message: data.message });
         setIsEmailLoad(false);
@@ -107,7 +106,7 @@ export default function ProfileUpdate() {
       setIsEmailLoad(false);
     }
   };
-
+  console.log(isUserLoad, isEmailLoad);
   return (
     <div>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -121,6 +120,7 @@ export default function ProfileUpdate() {
             placeholder="username"
             onChange={handleChange}
             onBlur={checkUsername}
+            disabled={isUserLoad}
             required
           />
           {isUserLoad ? <span className="loading loading-spinner loading-xs float-right"></span> : ''}
@@ -178,6 +178,7 @@ export default function ProfileUpdate() {
             placeholder="email"
             onChange={handleChange}
             onBlur={checkEmail}
+            disabled={isEmailLoad}
             required
           />
           {isEmailLoad ? <span className="loading loading-spinner loading-xs float-right"></span> : ''}

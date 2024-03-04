@@ -29,6 +29,14 @@ const OwnerSchema = new mongoose.Schema(
         type: String,
         required: true,
       },
+      shopCity: {
+        type: String,
+        default: 'Balanga',
+      },
+      shopProvince: {
+        type: String,
+        default: 'Bataan',
+      },
     },
     shopType: {
       type: Array,
@@ -46,6 +54,11 @@ const OwnerSchema = new mongoose.Schema(
     },
     permitPhoto: {
       type: String,
+      required: true,
+    },
+    isApproved: {
+      type: Boolean,
+      default: false,
       required: true,
     },
   },

@@ -16,7 +16,7 @@ function App() {
   return (
     <Router>
       <Header />
-      <div className="min-h-screen">
+      <main className="min-w-screen min-h-screen">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -30,7 +30,7 @@ function App() {
           </Route>
           <Route path="*" element={<Home />} />
         </Routes>
-      </div>
+      </main>
       <Footer />
     </Router>
   );
