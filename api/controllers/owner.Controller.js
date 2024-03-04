@@ -45,7 +45,6 @@ export const showShop = async (req, res, next) => {
   }
   try {
     const getShop = await Owners.findOne({ userId: req.params.id });
-    console.log(getShop);
     res.status(201).json(getShop);
   } catch (err) {
     next(err);
