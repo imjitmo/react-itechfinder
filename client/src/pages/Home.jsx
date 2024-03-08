@@ -1,12 +1,37 @@
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 export default function Home() {
+  const { currentUser } = useSelector((state) => state.user);
   return (
     <div className="max-w-full mx-auto">
-      <img
+      <section
+        id="hero"
+        className="flex flex-col text-left gap-2 pl-10 py-5 min-h-screen justify-center bg-[url('https://firebasestorage.googleapis.com/v0/b/itechfinder-4502f.appspot.com/o/page_photo%2Fbanner-top.png?alt=media&token=62166926-9269-4a87-af69-d1eb09bbe9b0')] bg-center bg-cover bg-no-repeat"
+      >
+        <h1 className="text-5xl font-bold text-yellow-400">
+          You deserve a device that works when you need it to.
+        </h1>
+        <p className="font-light text-xl text-white">Reliable repair for the device you depend on most.</p>
+        {currentUser?.username ? (
+          <Link to="/transaction">
+            <span className="btn bg-yellow-500 border-0 text-white uppercase rounded-lg font-bold text-xl px-8 hover:bg-yellow-300 hover:text-black">
+              Set an appointment
+            </span>
+          </Link>
+        ) : (
+          <Link to="/sign-up">
+            <span className="btn bg-yellow-500 border-0 text-white uppercase rounded-lg font-bold text-xl px-8 hover:bg-yellow-300 hover:text-black">
+              Get Started
+            </span>
+          </Link>
+        )}
+      </section>
+      {/* <img
         className="object-cover w-full h-auto"
         src="https://firebasestorage.googleapis.com/v0/b/itechfinder-4502f.appspot.com/o/page_photo%2Fbanner-top.png?alt=media&token=62166926-9269-4a87-af69-d1eb09bbe9b0"
-      />
+      /> */}
       <div className="p-3 mx-auto max-w-max">
-        <div className="flex flex-col gap-4 my-5">
+        <div className="flex flex-col gap-4 my-20">
           <h1 className="header-text text-4xl text-center">Start a repair</h1>
           <form action="" className="flex flex-col lg:flex-row gap-4">
             <label className="input input-bordered w-full max-w-xs flex items-center gap-2 p-5 bg-slate-100">
@@ -74,14 +99,25 @@ export default function Home() {
           </form>
         </div>
       </div>
-      <div className="bg-[url('https://firebasestorage.googleapis.com/v0/b/itechfinder-4502f.appspot.com/o/page_photo%2Fbanner-top.png?alt=media&token=62166926-9269-4a87-af69-d1eb09bbe9b0')]"></div>
-      <div className="max-w-full mx-auto my-5">
+      <section className="flex flex-col text-right justify-center gap-2 pr-10 py-5 bg-cover bg-no-repeat min-h-96 bg-[url('https://firebasestorage.googleapis.com/v0/b/itechfinder-4502f.appspot.com/o/page_photo%2Fimg-2.png?alt=media&token=7086b691-b3fb-4f0f-85ef-51b4f5979842')]">
+        <h1 className="text-5xl font-bold text-yellow-400">Fast repairs, right in your neighborhood</h1>
+        <p className="font-light text-xl text-white">
+          When things aren&apos;t going right, our technicials can help with any issue that you&apos;re facing
+        </p>
+        <Link to={currentUser?.username ? '/search' : '/sign-up'}>
+          <span className="btn bg-transparent border-2 border-slate-200 text-white uppercase rounded-full font-bold text-xl px-8 hover:bg-slate-50 hover:text-black">
+            Find a repair store
+          </span>
+        </Link>
+      </section>
+      {/* <div className="bg-[url('https://firebasestorage.googleapis.com/v0/b/itechfinder-4502f.appspot.com/o/page_photo%2Fbanner-top.png?alt=media&token=62166926-9269-4a87-af69-d1eb09bbe9b0')]"></div> */}
+      {/* <div className="max-w-full mx-auto my-5">
         <img
           className="object-cover w-full h-auto"
           src="https://firebasestorage.googleapis.com/v0/b/itechfinder-4502f.appspot.com/o/page_photo%2Fimg-2.png?alt=media&token=7086b691-b3fb-4f0f-85ef-51b4f5979842"
           alt=""
         />
-      </div>
+      </div> */}
       <div className="max-w-6xl mx-auto my-5 text-center">
         <h1 className="header-text text-3xl mt-7">What can we fix for you?</h1>
         <div className="flex flex-col lg:flex-row gap-4 p-3 justify-center items-center">

@@ -63,6 +63,9 @@ export default function StoreSetup() {
     if (!formData.permitPhoto || formData.permitPhoto === undefined || formData.permitPhoto === '') {
       return;
     }
+    if (!formData?.permitPhoto) {
+      return;
+    }
     try {
       dispatch(updateUserStart());
       const res = await fetch(`/api/store/setup/${currentUser._id}/${currentUser.username}`, {
