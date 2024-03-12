@@ -40,7 +40,7 @@ export default function Header() {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-blue-600 rounded-box w-52 lg:hidden"
+              className="menu menu-sm dropdown-content mt-3 z-[99] p-2 shadow bg-blue-600 rounded-box w-52 lg:hidden"
             >
               {currentUser && currentUser.isAdmin && (
                 <li className="hover:bg-blue-700 rounded-lg">

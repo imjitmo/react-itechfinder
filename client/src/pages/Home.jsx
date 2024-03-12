@@ -6,7 +6,7 @@ export default function Home() {
     <div className="max-w-full mx-auto">
       <section
         id="hero"
-        className="flex flex-col text-left gap-2 pl-10 py-5 min-h-screen justify-center bg-[url('https://firebasestorage.googleapis.com/v0/b/itechfinder-4502f.appspot.com/o/page_photo%2Fbanner-top.png?alt=media&token=62166926-9269-4a87-af69-d1eb09bbe9b0')] bg-center bg-cover bg-no-repeat bg-blend-overlay bg-black/30"
+        className="flex flex-col text-left gap-2 px-10 py-5 min-h-svh justify-center bg-[url('https://firebasestorage.googleapis.com/v0/b/itechfinder-4502f.appspot.com/o/page_photo%2Fbanner-top.png?alt=media&token=62166926-9269-4a87-af69-d1eb09bbe9b0')] bg-center bg-cover bg-no-repeat bg-blend-overlay bg-black/30"
       >
         <h1 className="text-5xl font-bold text-yellow-400">
           You deserve a device that works when you need it to.
@@ -99,7 +99,7 @@ export default function Home() {
           </form>
         </div>
       </div>
-      <section className="flex flex-col text-right justify-center gap-2 pr-10 py-5 bg-cover bg-no-repeat min-h-96 bg-[url('https://firebasestorage.googleapis.com/v0/b/itechfinder-4502f.appspot.com/o/page_photo%2Fimg-2.png?alt=media&token=7086b691-b3fb-4f0f-85ef-51b4f5979842')]  bg-blend-overlay bg-black/30">
+      <section className="flex flex-col text-right justify-center gap-2 px-10 py-5 bg-cover bg-no-repeat min-h-96 bg-[url('https://firebasestorage.googleapis.com/v0/b/itechfinder-4502f.appspot.com/o/page_photo%2Fimg-2.png?alt=media&token=7086b691-b3fb-4f0f-85ef-51b4f5979842')]  bg-blend-overlay bg-black/50">
         <h1 className="text-5xl font-bold text-yellow-400">Fast repairs, right in your neighborhood</h1>
         <p className="font-light text-xl text-white">
           When things aren&apos;t going right, our technicials can help with any issue that you&apos;re facing

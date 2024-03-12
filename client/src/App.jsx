@@ -1,11 +1,13 @@
 import './App.css';
 
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import AdminRoute from './components/AdminRoute';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
 import About from './pages/About';
+import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Shop from './pages/Shop';
@@ -20,6 +22,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route element={<AdminRoute />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
           <Route element={<PrivateRoute />}>
             <Route path="/profile" element={<Profile />} />
             <Route path="/shop" element={<Shop />} />
