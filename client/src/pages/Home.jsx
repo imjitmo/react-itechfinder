@@ -1,7 +1,34 @@
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import brgyList from '../hooks/brgy.js';
+import gadgets from '../hooks/gadgets.js';
 export default function Home() {
   const { currentUser } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState({
+    type: 'all',
+    loc: 'all',
+  });
+  const urlParams = new URLSearchParams(window.location.search);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    urlParams.set('type', searchTerm.type);
+    urlParams.set('loc', searchTerm.loc);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
+  };
+
+  const handleChange = (e) => {
+    setSearchTerm({
+      ...searchTerm,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  console.log(searchTerm);
+
   return (
     <div className="max-w-full mx-auto">
       <section
@@ -33,7 +60,7 @@ export default function Home() {
       <div className="p-3 mx-auto max-w-max">
         <div className="flex flex-col gap-4 my-20">
           <h1 className="header-text text-4xl text-center">Start a repair</h1>
-          <form action="" className="flex flex-col lg:flex-row gap-4">
+          <form onSubmit={handleSubmit} className="flex flex-col lg:flex-row gap-4">
             <label className="input input-bordered w-full max-w-xs flex items-center gap-2 p-5 bg-slate-100">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -50,13 +77,24 @@ export default function Home() {
                 />
               </svg>
 
-              <select className="grow bg-slate-100" name="" id="" defaultValue={'DEFAULT'}>
+              <select
+                className="grow bg-slate-100"
+                name="type"
+                id="type"
+                defaultValue={'DEFAULT'}
+                onChange={handleChange}
+              >
                 <option value="DEFAULT" disabled>
                   What can we fix for you?
                 </option>
-                <option value="android">Android Phone</option>
+                {gadgets?.map((gadgets) => (
+                  <option key={gadgets.value} value={gadgets.value}>
+                    {gadgets.label}
+                  </option>
+                ))}
               </select>
             </label>
+
             <label className="input input-bordered w-full max-w-xs flex items-center gap-2 p-5 bg-slate-100">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -78,8 +116,46 @@ export default function Home() {
                 />
               </svg>
 
-              <input type="text" className="grow bg-slate-100" placeholder="Set your location" />
+              <select
+                className="grow bg-slate-100"
+                name="loc"
+                id="loc"
+                defaultValue={'DEFAULT'}
+                onChange={handleChange}
+              >
+                <option value="DEFAULT" disabled>
+                  Set your location
+                </option>
+                {brgyList?.map((brgy) => (
+                  <option key={brgy.value} value={brgy.value}>
+                    {brgy.name}
+                  </option>
+                ))}
+              </select>
             </label>
+            {/* <label className="input input-bordered w-full max-w-xs flex items-center gap-2 p-5 bg-slate-100">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
+                />
+              </svg>
+
+              <input type="text" className="grow bg-slate-100" id placeholder="Set your location" />
+            </label> */}
             <button className="primary-btn">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -123,6 +199,7 @@ export default function Home() {
         <div className="flex flex-col lg:flex-row gap-4 p-3 justify-center items-center">
           <div className="front-img">
             <img
+              loading="lazy"
               src="https://firebasestorage.googleapis.com/v0/b/itechfinder-4502f.appspot.com/o/page_photo%2Fmobile.png?alt=media&token=9aa3eaea-cbed-4101-9055-43e194ffbda0"
               className="menu-img"
               alt=""
@@ -131,6 +208,7 @@ export default function Home() {
           </div>
           <div className="front-img">
             <img
+              loading="lazy"
               src="https://firebasestorage.googleapis.com/v0/b/itechfinder-4502f.appspot.com/o/page_photo%2Fdesktop.png?alt=media&token=7398581d-2105-4715-89aa-ba60289628f1"
               className="menu-img"
               alt=""
@@ -139,6 +217,7 @@ export default function Home() {
           </div>
           <div className="front-img">
             <img
+              loading="lazy"
               src="https://firebasestorage.googleapis.com/v0/b/itechfinder-4502f.appspot.com/o/page_photo%2Flaptop.png?alt=media&token=ab533277-b660-4f2b-b9f6-8b795d685321"
               className="menu-img"
               alt=""
@@ -147,6 +226,7 @@ export default function Home() {
           </div>
           <div className="front-img">
             <img
+              loading="lazy"
               src="https://firebasestorage.googleapis.com/v0/b/itechfinder-4502f.appspot.com/o/page_photo%2Fconsole.png?alt=media&token=730880bd-52d7-4fad-a7cd-cb14f1c4bba0"
               className="menu-img"
               alt=""
@@ -155,6 +235,7 @@ export default function Home() {
           </div>
           <div className="front-img">
             <img
+              loading="lazy"
               src="https://firebasestorage.googleapis.com/v0/b/itechfinder-4502f.appspot.com/o/page_photo%2Fappliances.png?alt=media&token=5c5b1b7a-06e4-46b7-bab7-5042e3ef9715"
               className="menu-img"
               alt=""

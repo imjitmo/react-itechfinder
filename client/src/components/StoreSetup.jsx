@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { app } from '../firebase/firebase.js';
+import brgyList from '../hooks/brgy.js';
 import gadgets from '../hooks/gadgets';
 import storeType from '../hooks/storeType';
 import { updateUserFailure, updateUserStart, updateUserSuccess } from '../redux/user/user.slice.js';
@@ -218,7 +219,11 @@ export default function StoreSetup() {
                     required
                   >
                     <option value="">Barangay</option>
-                    <option value="brgy">Brgy</option>
+                    {brgyList.map((brgy) => (
+                      <option key={brgy.value} value={brgy.value}>
+                        {brgy.name}
+                      </option>
+                    ))}
                   </select>
                 </label>
               </div>
