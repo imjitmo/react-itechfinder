@@ -5,10 +5,10 @@ import brgyList from '../hooks/brgy';
 import gadgets from '../hooks/gadgets';
 
 export default function Search() {
-  // const { currentUser } = useSelector((state) => state.user);
+  const { currentUser } = useSelector((state) => state.user);
   const urlParams = new URLSearchParams(window.location.search);
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const [storeLoading, setStoreLoading] = useState(false);
   const [store, setStore] = useState();
   const [searchError, setSearchError] = useState(false);
   const [searchTerm, setSearchTerm] = useState({
@@ -33,14 +33,14 @@ export default function Search() {
 
   useEffect(() => {
     const fetchListing = async () => {
-      setLoading(true);
+      setStoreLoading(true);
       const searchQuery = urlParams.toString();
       const res = await fetch(`/api/store/active?${searchQuery}`);
       const data = await res.json();
       if (data.error === true) {
         setStore('');
         setSearchError(true);
-        setLoading(false);
+        setStoreLoading(false);
         return;
       }
       // if (data.length > 9) {
@@ -50,7 +50,7 @@ export default function Search() {
       // }
       setStore(data);
       setSearchError(false);
-      setLoading(false);
+      setStoreLoading(false);
     };
 
     fetchListing();
@@ -143,14 +143,17 @@ export default function Search() {
             src="https://firebasestorage.googleapis.com/v0/b/jp-estate.appspot.com/o/contents%2Floading.gif?alt=media&token=7af3641c-7738-4fca-a314-6346f5fc0163&_gl=1*10xzelj*_ga*MTM1Nzk3ODk0NC4xNjk3MjQ3ODM3*_ga_CW55HF8NVT*MTY5NzM2MDY5Ny4xMC4xLjE2OTczNjA3MjAuMzcuMC4w"
             alt="loading-image"
           /> */}
-          {loading && (
+          {storeLoading && (
             <p className="text-2xl py-10">
               <span className="loading loading-dots loading-lg"></span>
             </p>
           )}
           {store &&
             store.map((storeInfo) => (
-              <div key={storeInfo?._id} className="">
+              <div
+                key={storeInfo?._id}
+                className="flex flex-col gap-2 border-[1px] p-7 border-slate-300 rounded-lg"
+              >
                 <h3 className="text-xl font-bold">{storeInfo?.shopName}</h3>
                 <p className="capitalize text-sm italic">{`${storeInfo.shopAddress.shopStreet}, ${storeInfo.shopAddress.shopBarangay}, ${storeInfo.shopAddress.shopCity}, ${storeInfo.shopAddress.shopProvince}`}</p>
                 <p className="capitalize text-sm font-bold">{storeInfo.ownerName}</p>
@@ -168,6 +171,7 @@ export default function Search() {
                     {storeInfo.gadgetList.join(', ')}
                   </span>
                 </p>
+                {currentUser && <button className="primary-btn"> Set Appointment </button>}
               </div>
             ))}
           <div className="flex flex-wrap gap-4">
