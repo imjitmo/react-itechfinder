@@ -58,8 +58,8 @@ export default function Search() {
 
   return (
     <div className="flex flex-col md:flex-row">
-      <div className="p-7 w-96 border-b-2 md:border-r-2 md:min-h-screen">
-        <form onSubmit={handleSubmit} className="flex flex-col gap-8">
+      <div className="p-7 w-96 border-b-2 md:border-r-2 md:min-h-screen mx-auto md:mx-0">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-8 center">
           <div className="flex items-center gap-2"></div>
 
           <label className="input input-bordered w-full max-w-xs flex items-center gap-2 p-5 bg-slate-100">
