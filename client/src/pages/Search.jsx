@@ -148,33 +148,34 @@ export default function Search() {
               <span className="loading loading-dots loading-lg"></span>
             </p>
           )}
-          {store &&
-            store.map((storeInfo) => (
-              <div
-                key={storeInfo?._id}
-                className="flex flex-col gap-2 border-[1px] p-7 border-slate-300 rounded-lg"
-              >
-                <h3 className="text-xl font-bold">{storeInfo?.shopName}</h3>
-                <p className="capitalize text-sm italic">{`${storeInfo.shopAddress.shopStreet}, ${storeInfo.shopAddress.shopBarangay}, ${storeInfo.shopAddress.shopCity}, ${storeInfo.shopAddress.shopProvince}`}</p>
-                <p className="capitalize text-sm font-bold">{storeInfo.ownerName}</p>
-                <p className="text-sm">
-                  <strong>Services Offered:</strong>{' '}
-                  <span className="capitalize italic bg-blue-800 text-white px-2 rounded-lg">
-                    {' '}
-                    {storeInfo.shopType.join(', ')}
-                  </span>
-                </p>
-                <p className="text-sm">
-                  <strong>Gadget List:</strong>{' '}
-                  <span className="capitalize italic bg-blue-800 text-white px-2 rounded-lg">
-                    {' '}
-                    {storeInfo.gadgetList.join(', ')}
-                  </span>
-                </p>
-                {currentUser && <button className="primary-btn"> Set Appointment </button>}
-              </div>
-            ))}
+
           <div className="flex flex-wrap gap-4">
+            {store &&
+              store.map((storeInfo) => (
+                <div
+                  key={storeInfo?._id}
+                  className="flex flex-col gap-2 border-[1px] p-7 border-slate-300 rounded-lg"
+                >
+                  <h3 className="text-xl font-bold">{storeInfo?.shopName}</h3>
+                  <p className="capitalize text-sm italic">{`${storeInfo.shopAddress.shopStreet}, ${storeInfo.shopAddress.shopBarangay}, ${storeInfo.shopAddress.shopCity}, ${storeInfo.shopAddress.shopProvince}`}</p>
+                  <p className="capitalize text-sm font-bold">{storeInfo.ownerName}</p>
+                  <p className="text-sm">
+                    <strong>Services Offered:</strong>{' '}
+                    <span className="capitalize italic bg-blue-800 text-white px-2 rounded-lg">
+                      {' '}
+                      {storeInfo.shopType.join(', ')}
+                    </span>
+                  </p>
+                  <p className="text-sm">
+                    <strong>Gadget List:</strong>{' '}
+                    <span className="capitalize italic bg-blue-800 text-white px-2 rounded-lg">
+                      {' '}
+                      {storeInfo.gadgetList.join(', ')}
+                    </span>
+                  </p>
+                  {currentUser && <button className="primary-btn"> Set Appointment </button>}
+                </div>
+              ))}
             <button className="text-green-500 hover:underline p-7 text-center w-full">Show more...</button>
           </div>
         </div>
