@@ -44,7 +44,15 @@ export const signin = async (req, res, next) => {
     const { password: hashedPassword, ...rest } = validUser._doc;
 
     //Creates token for accessing the page
-    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
+    const token = jwt.sign(
+      {
+        id: validUser._id,
+        isAdmin: validUser.isAdmin,
+        userType: validUser.userType,
+        isOwner: validUser.isOwner,
+      },
+      process.env.JWT_SECRET
+    );
     res.cookie('access_token', token, { httpOnly: true }).status(200).json(rest);
   } catch (err) {
     next(err);

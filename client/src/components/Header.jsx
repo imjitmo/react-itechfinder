@@ -175,7 +175,7 @@ export default function Header() {
               </span>
               <ul
                 tabIndex={0}
-                className="dropdown-content z-[1] menu p-2 shadow rounded-box w-52 bg-blue-600"
+                className="dropdown-content z-[99] menu p-2 shadow rounded-box w-52 bg-blue-600"
               >
                 <li className="hover:bg-blue-800 rounded-lg">
                   <NavLink to="/profile">

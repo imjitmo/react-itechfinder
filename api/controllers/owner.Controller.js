@@ -50,3 +50,53 @@ export const showShop = async (req, res, next) => {
     next(err);
   }
 };
+
+export const viewActiveShop = async (req, res, next) => {
+  console.log(req.query);
+  const gadgetList =
+    req.query.type === 'all'
+      ? { $in: ['applephone', 'smartphone', 'laptop', 'mac', 'desktop', 'console', 'appliances'] }
+      : req.query.type;
+
+  const shopBarangay =
+    req.query.loc === 'all'
+      ? {
+          $in: [
+            'bagumbayan',
+            'cabog-cabog',
+            'munting batangas',
+            'cataning',
+            'central',
+            'cupang proper',
+            'cupang west',
+            'dangcol',
+            'ibayo',
+            'malabia',
+            'poblacion Barcenas',
+            'pto. rivas ibaba',
+            'pto. rivas itaas',
+            'san jose',
+            'sibacan',
+            'camacho',
+            'talisay',
+            'tanato',
+            'tenejero',
+            'tortugas',
+            'tuyo',
+            'bagong silang',
+            'cupang north',
+            'doña francisca',
+          ],
+        }
+      : req.query.loc;
+  try {
+    const activeShop = await Owners.find({
+      isApproved: true,
+      gadgetList,
+      'shopAddress.shopBarangay': shopBarangay,
+    });
+    activeShop.length === 0 ? res.status(200).json({ error: true }) : res.status(201).json(activeShop);
+  } catch (err) {
+    next(err);
+  }
+};

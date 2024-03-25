@@ -10,6 +10,18 @@ export const verifyToken = (req, res, next) => {
     if (err) return next(errorHandler(403, 'Invalid Token'));
 
     req.user = user;
+    console.log(req.user.isAdmin);
     next();
   });
+};
+
+export const verifyAdmin = (req, res, next) => {
+  if (req.user.isAdmin) {
+    next();
+  } else {
+    return res.send({
+      auth: 'Failed!',
+      message: 'Access Forbidden',
+    });
+  }
 };

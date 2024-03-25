@@ -28,7 +28,7 @@ const brgyList = [
     name: 'Cupang West',
   },
   {
-    value: 'dangcol (bernabe)',
+    value: 'dangcol',
     name: 'Dangcol (Bernabe)',
   },
   {

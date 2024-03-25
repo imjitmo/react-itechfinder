@@ -1,13 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import brgyList from '../hooks/brgy';
 import gadgets from '../hooks/gadgets';
 
 export default function Search() {
-  const { currentUser } = useSelector((state) => state.user);
+  // const { currentUser } = useSelector((state) => state.user);
   const urlParams = new URLSearchParams(window.location.search);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [store, setStore] = useState();
+  const [searchError, setSearchError] = useState(false);
   const [searchTerm, setSearchTerm] = useState({
     type: urlParams.get('type') || 'all',
     loc: urlParams.get('loc') || 'all',
@@ -27,6 +30,31 @@ export default function Search() {
       [e.target.id]: e.target.value,
     });
   };
+
+  useEffect(() => {
+    const fetchListing = async () => {
+      setLoading(true);
+      const searchQuery = urlParams.toString();
+      const res = await fetch(`/api/store/active?${searchQuery}`);
+      const data = await res.json();
+      if (data.error === true) {
+        setStore('');
+        setSearchError(true);
+        setLoading(false);
+        return;
+      }
+      // if (data.length > 9) {
+      //   setShowMore(true);
+      // } else {
+      //   setShowMore(false);
+      // }
+      setStore(data);
+      setSearchError(false);
+      setLoading(false);
+    };
+
+    fetchListing();
+  }, [location.search]);
 
   return (
     <div className="flex flex-col md:flex-row">
@@ -109,15 +137,39 @@ export default function Search() {
       <div className="">
         <h1 className="text-3xl font-semibold border-b-2 p-3 text-slate-700 mt-5">Search Results:</h1>
         <div className="flex-1 p-7 flex-wrap">
-          <p className="text-2xl text-center text-slate-700">No Listings found!</p>
+          {searchError && <p className="text-2xl text-center text-slate-700">No Listings found!</p>}
           {/* <img
             className="w-2/4 object-contain mx-auto"
             src="https://firebasestorage.googleapis.com/v0/b/jp-estate.appspot.com/o/contents%2Floading.gif?alt=media&token=7af3641c-7738-4fca-a314-6346f5fc0163&_gl=1*10xzelj*_ga*MTM1Nzk3ODk0NC4xNjk3MjQ3ODM3*_ga_CW55HF8NVT*MTY5NzM2MDY5Ny4xMC4xLjE2OTczNjA3MjAuMzcuMC4w"
             alt="loading-image"
           /> */}
-          <p className="text-2xl py-10">
-            <span className="loading loading-dots loading-lg"></span>
-          </p>
+          {loading && (
+            <p className="text-2xl py-10">
+              <span className="loading loading-dots loading-lg"></span>
+            </p>
+          )}
+          {store &&
+            store.map((storeInfo) => (
+              <div key={storeInfo?._id} className="">
+                <h3 className="text-xl font-bold">{storeInfo?.shopName}</h3>
+                <p className="capitalize text-sm italic">{`${storeInfo.shopAddress.shopStreet}, ${storeInfo.shopAddress.shopBarangay}, ${storeInfo.shopAddress.shopCity}, ${storeInfo.shopAddress.shopProvince}`}</p>
+                <p className="capitalize text-sm font-bold">{storeInfo.ownerName}</p>
+                <p className="text-sm">
+                  <strong>Services Offered:</strong>{' '}
+                  <span className="capitalize italic bg-blue-800 text-white px-2 rounded-lg">
+                    {' '}
+                    {storeInfo.shopType.join(', ')}
+                  </span>
+                </p>
+                <p className="text-sm">
+                  <strong>Gadget List:</strong>{' '}
+                  <span className="capitalize italic bg-blue-800 text-white px-2 rounded-lg">
+                    {' '}
+                    {storeInfo.gadgetList.join(', ')}
+                  </span>
+                </p>
+              </div>
+            ))}
           <div className="flex flex-wrap gap-4">
             <button className="text-green-500 hover:underline p-7 text-center w-full">Show more...</button>
           </div>
