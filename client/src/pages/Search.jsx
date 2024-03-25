@@ -176,7 +176,9 @@ export default function Search() {
                   {currentUser && <button className="primary-btn"> Set Appointment </button>}
                 </div>
               ))}
-            <button className="text-green-500 hover:underline p-7 text-center w-full">Show more...</button>
+            {store?.length > 9 && (
+              <button className="text-green-500 hover:underline p-7 text-center w-full">Show more...</button>
+            )}
           </div>
         </div>
       </div>

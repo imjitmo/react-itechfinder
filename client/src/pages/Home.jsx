@@ -27,8 +27,6 @@ export default function Home() {
     });
   };
 
-  console.log(searchTerm);
-
   return (
     <div className="max-w-full mx-auto">
       <section

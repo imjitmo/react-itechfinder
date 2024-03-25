@@ -52,7 +52,6 @@ export const showShop = async (req, res, next) => {
 };
 
 export const viewActiveShop = async (req, res, next) => {
-  console.log(req.query);
   const gadgetList =
     req.query.type === 'all'
       ? { $in: ['applephone', 'smartphone', 'laptop', 'mac', 'desktop', 'console', 'appliances'] }
